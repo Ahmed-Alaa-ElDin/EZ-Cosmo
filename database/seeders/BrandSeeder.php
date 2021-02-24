@@ -16,37 +16,48 @@ class BrandSeeder extends Seeder
     {
         Brand::insert([
             [
-                'name' => 'Avene'
+                'name' => 'Avene',
+                'country_id' => 3
             ],
             [
-                'name' => 'Bioderma'
+                'name' => 'Bioderma',
+                'country_id' => 3
             ],
             [
-                'name' => 'Cleo'
+                'name' => 'Cleo',
+                'country_id' => 1
             ],
             [
-                'name' => 'SVR'
+                'name' => 'SVR',
+                'country_id' => 3
             ],
             [
-                'name' => 'Vichy'
+                'name' => 'Vichy',
+                'country_id' => 3
             ],
             [
-                'name' => 'La Roche-Posay'
+                'name' => 'La Roche-Posay',
+                'country_id' => 3
             ],
             [
-                'name' => 'Nuxe'
+                'name' => 'Nuxe',
+                'country_id' => 3
             ],
             [
-                'name' => 'Loreal'
+                'name' => 'Loreal',
+                'country_id' => 3
             ],
             [
-                'name' => 'Bourjois'
+                'name' => 'Bourjois',
+                'country_id' => 3
             ],
             [
-                'name' => 'Uriage'
+                'name' => 'Uriage',
+                'country_id' => 3
             ],
             [
-                'name' => 'Garnier'
+                'name' => 'Garnier',
+                'country_id' => 3
             ]
         ]
     );

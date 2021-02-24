@@ -18,20 +18,28 @@ class CountrySeeder extends Seeder
     {
         $country = Country::insert([
             [
+                'id' => 1,
                 'name' => 'Egypt',
             ],[
+                'id' => 2,
                 'name' => 'Turkey',
             ],[
+                'id' => 3,
                 'name' => 'France',
             ],[
+                'id' => 4,
                 'name' => 'USA',
             ],[
+                'id' => 5,
                 'name' => 'UK',
             ],[
+                'id' => 6,
                 'name' => 'Saudi Arabia',
             ],[
+                'id' => 7,
                 'name' => 'Qatar',
             ],[
+                'id' => 8,
                 'name' => 'Algeria',
             ],
 

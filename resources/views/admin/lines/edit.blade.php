@@ -28,7 +28,7 @@
                                     rounded w-50" name="name" value="{{ old('name', $line->name) }}">
                         </div>
                         @error('name')
-                            <div class="text-red-500 text-center mt-2 text-bold">{{ $message }}</div>
+                            <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -48,7 +48,7 @@
                             </select>
                         </div>
                         @error('brand')
-                            <div class="text-red-500 text-center mt-2 text-bold">{{ $message }}</div>
+                            <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
                         @enderror
                     </div>
 

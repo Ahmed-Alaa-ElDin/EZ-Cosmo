@@ -27,7 +27,7 @@
                             rounded w-50" name="name" value="{{old('name')}}">
                         </div>
                         @error('name')
-                            <div class="text-red-500 text-center mt-2 text-bold">{{ $message }}</div>
+                            <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -51,14 +51,14 @@
                             </select>
                         </div>
                         @error('brand')
-                            <div class="text-red-500 text-center mt-2 text-bold">{{ $message }}</div>
+                            <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
                         @enderror
                     </div>
 
 
                     <div class="flex w-50  m-auto justify-between my-4">
-                        <button class="btn btn-success text-white">Save Brand</button>
-                        <a href="{{route('admin.brands.index')}}" class="btn btn-danger">Cancel</a>
+                        <button class="btn btn-success text-white font-bold">Save Brand</button>
+                        <a href="{{route('admin.brands.index')}}" class="btn btn-danger font-bold">Cancel</a>
                     </div>
                 </form>
             </div>
