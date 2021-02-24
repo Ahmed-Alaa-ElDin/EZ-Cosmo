@@ -87,66 +87,49 @@
         </div>
     </div>
 
-    <script>
-        $("#brands").DataTable({
-            buttons: [{
-                    extend: 'colvis',
-                    className: 'bg-info font-bold',
-                },
-                {
-                    extend: 'copyHtml5',
-                    className: 'bg-primary font-bold',
-                    exportOptions: {
-                        columns: [0, 1]
-                    }
-                },
-                {
-                    extend: 'excelHtml5',
-                    className: 'bg-success font-bold',
-                    exportOptions: {
-                        columns: [0, 1]
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    className: 'bg-danger font-bold',
-                    exportOptions: {
-                        columns: [0, 1]
-                    }
-                },
-                {
-                    extend: 'print',
-                    className: 'bg-dark font-bold',
-                    exportOptions: {
-                        columns: [0, 1]
-                    }
-                },
-            ]
-        }).buttons().container().appendTo(document.getElementById("buttonPlacement"));;
+@endsection
+@section('script')
+    $("#brands").DataTable({
+    buttons: [{
+    extend: 'colvis',
+    className: 'bg-info font-bold',
+    },
+    {
+    extend: 'copyHtml5',
+    className: 'bg-primary font-bold',
+    exportOptions: {
+    columns: [0, 1]
+    }
+    },
+    {
+    extend: 'excelHtml5',
+    className: 'bg-success font-bold',
+    exportOptions: {
+    columns: [0, 1]
+    }
+    },
+    {
+    extend: 'pdfHtml5',
+    className: 'bg-danger font-bold',
+    exportOptions: {
+    columns: [0, 1]
+    }
+    },
+    {
+    extend: 'print',
+    className: 'bg-dark font-bold',
+    exportOptions: {
+    columns: [0, 1]
+    }
+    },
+    ]
+    }).buttons().container().appendTo(document.getElementById("buttonPlacement"));;
 
-        $('.deleteButton').on('click', function() {
-            $('#deletedItemName').text($(this).data('name'));
-            $('#deleteForm').attr("action", '/brands/' + $(this).data('id'));
-        });
-        @if (session('success'))
-            toastr.success('{{ session('success') }}')
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            }
-        @endif
-    </script>
+    $('.deleteButton').on('click', function() {
+    $('#deletedItemName').text($(this).data('name'));
+    $('#deleteForm').attr("action", '/brands/' + $(this).data('id'));
+    });
+    @if (session('success'))
+        toastr.success('{{ session('success') }}')
+    @endif
 @endsection

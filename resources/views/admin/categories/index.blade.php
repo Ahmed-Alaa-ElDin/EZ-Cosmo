@@ -4,13 +4,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header flex justify-between">
         <h1>
-            All Lines
+            All Categories
             <small>View</small>
         </h1>
         <div>
-            <a href="{{ route('admin.lines.create') }}"
+            <a href="{{ route('admin.categories.create') }}"
                 class="btn btn-success font-bold inline-block items-center relative block pl-8"><i
-                    class="fa fa-plus fa-xs absolute top-3 left-3"></i> Create New Line</a>
+                    class="fa fa-plus fa-xs absolute top-3 left-3"></i> Create New Category</a>
         </div>
     </section>
     <!-- Main content -->
@@ -18,26 +18,24 @@
         <div class="card">
             <div class="card-body shadow">
                 <div id="buttonPlacement" class="mb-3 text-center"></div>
-                <table id="lines" class="table table-bordered w-100 text-center">
+                <table id="categories" class="table table-bordered w-100 text-center">
                     <thead class="bg-primary text-white align-middle">
                         <tr>
                             <th>Name</th>
-                            <th>Brand</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach ($lines as $line)
+                        @foreach ($categories as $category)
                             <tr>
-                                <td class="align-middle">{{ $line->name }}</td>
-                                <td class="align-middle">{{ $line->brand->name }}</td>
+                                <td class="align-middle">{{ $category->name }}</td>
                                 <td class="align-middle">
-                                    <a href="{{ route('admin.lines.edit', $line->id) }}"
+                                    <a href="{{ route('admin.categories.show', $category->id) }}"
                                         class="btn btn-sm btn-primary font-bold">View Products</a>
-                                    <a href="{{ route('admin.lines.edit', $line->id) }}"
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}"
                                         class="btn btn-sm btn-info font-bold">Edit</a>
                                     <button type="button" class="btn btn-sm btn-danger font-bold deleteButton"
-                                        data-name='{{ $line->name }}' data-id='{{ $line->id }}' data-toggle="modal"
+                                        data-name='{{ $category->name }}' data-id='{{ $category->id }}' data-toggle="modal"
                                         data-target="#DeleteModal">Delete</button>
                                 </td>
                             </tr>
@@ -46,11 +44,9 @@
                     <tfoot class="bg-light text-primary align-middle">
                         <tr>
                             <th>Name</th>
-                            <th>Brand</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
-
                 </table>
             </div>
         </div>
@@ -81,10 +77,10 @@
             </div>
         </div>
     </div>
-@endsection
 
+@endsection
 @section('script')
-    $("#lines").DataTable({
+    $("#categories").DataTable({
     buttons: [{
     extend: 'colvis',
     className: 'bg-info font-bold',
@@ -93,28 +89,28 @@
     extend: 'copyHtml5',
     className: 'bg-primary font-bold',
     exportOptions: {
-    columns: [0, 1]
+    columns: [0]
     }
     },
     {
     extend: 'excelHtml5',
     className: 'bg-success font-bold',
     exportOptions: {
-    columns: [0, 1]
+    columns: [0]
     }
     },
     {
     extend: 'pdfHtml5',
     className: 'bg-danger font-bold',
     exportOptions: {
-    columns: [0, 1]
+    columns: [0]
     }
     },
     {
     extend: 'print',
     className: 'bg-dark font-bold',
     exportOptions: {
-    columns: [0, 1]
+    columns: [0]
     }
     },
     ]
@@ -122,9 +118,8 @@
 
     $('.deleteButton').on('click', function() {
     $('#deletedItemName').text($(this).data('name'));
-    $('#deleteForm').attr("action", '/lines/' + $(this).data('id'));
+    $('#deleteForm').attr("action", '/categories/' + $(this).data('id'));
     });
-
     @if (session('success'))
         toastr.success('{{ session('success') }}')
     @endif

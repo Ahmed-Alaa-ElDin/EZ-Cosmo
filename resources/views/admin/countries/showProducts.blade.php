@@ -4,13 +4,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header flex justify-between">
         <h1>
-            All Lines
+            Products Made In {{ $country->name }}
             <small>View</small>
         </h1>
         <div>
-            <a href="{{ route('admin.lines.create') }}"
-                class="btn btn-success font-bold inline-block items-center relative block pl-8"><i
-                    class="fa fa-plus fa-xs absolute top-3 left-3"></i> Create New Line</a>
+            <a href="{{ route('admin.countries.index') }}"
+                class="btn btn-primary font-bold inline-block items-center relative block pl-8"><i
+                    class="fas fa-backward fa-xs absolute top-3 left-3"></i> Back To Countries</a>
         </div>
     </section>
     <!-- Main content -->
@@ -22,35 +22,38 @@
                     <thead class="bg-primary text-white align-middle">
                         <tr>
                             <th>Name</th>
-                            <th>Brand</th>
+                            <th>Country</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach ($lines as $line)
-                            <tr>
-                                <td class="align-middle">{{ $line->name }}</td>
-                                <td class="align-middle">{{ $line->brand->name }}</td>
-                                <td class="align-middle">
-                                    <a href="{{ route('admin.lines.edit', $line->id) }}"
+                        @foreach ($country->brands as $brand)
+                            @foreach ($brand->lines as $line)
+                                @foreach ($line->products as $product)
+                                    <tr>
+                                        <td class="align-middle">{{ $product->first_name }}</td>
+                                        <td class="align-middle">{{ $country->name }}</td>
+                                        <td class="align-middle">
+                                            {{-- <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-primary font-bold">View Products</a>
-                                    <a href="{{ route('admin.lines.edit', $line->id) }}"
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-info font-bold">Edit</a>
                                     <button type="button" class="btn btn-sm btn-danger font-bold deleteButton"
-                                        data-name='{{ $line->name }}' data-id='{{ $line->id }}' data-toggle="modal"
-                                        data-target="#DeleteModal">Delete</button>
-                                </td>
-                            </tr>
+                                        data-name='{{ $user->name }}' data-id='{{ $user->id }}' data-toggle="modal"
+                                        data-target="#DeleteModal">Delete</button> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endforeach
                         @endforeach
                     </tbody>
                     <tfoot class="bg-light text-primary align-middle">
                         <tr>
                             <th>Name</th>
-                            <th>Brand</th>
+                            <th>Country</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
-
                 </table>
             </div>
         </div>

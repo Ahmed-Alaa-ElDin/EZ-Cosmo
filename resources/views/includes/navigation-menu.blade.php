@@ -78,9 +78,11 @@
           <ul class=" treeview-menu">
             <li class="@yield("user")"><a href="{{route('admin.brands.index')}}"><i class="fa fa-user fa-fw"></i> Brands</a></li>
             <li class="@yield("order")"><a href="{{route('admin.lines.index')}}"><i class="fa fa-shopping-cart fa-fw"></i> Lines</a></li>
-            <li class="@yield("category")"><a href=""><i class="fa fa-sitemap fa-fw"></i> Category</a></li>
+            <li class="@yield("country")"><a href="{{route('admin.countries.index')}}"><i class="fa fa-globe-africa fa-fw"></i> Country</a></li>
+            <li class="@yield("category")"><a href="{{route('admin.categories.index')}}"><i class="fa fa-sitemap fa-fw"></i> Category</a></li>
+            <li class="@yield("indication")"><a href="{{route('admin.indications.index')}}"><i class="fa fa-pills fa-fw"></i> Indications</a></li>
+            <li class="@yield("ingredient")"><a href="{{route('admin.ingredients.index')}}"><i class="fa fa-pills fa-fw"></i> Ingredients</a></li>
             <li class="@yield("product")"><a href=""><i class="fa fa-pills fa-fw"></i> Product</a></li>
-            <li class="@yield("country")"><a href=""><i class="fa fa-globe-africa fa-fw"></i> Country</a></li>
             <li class="@yield("city")"><a href=""><i class="fa fa-city fa-fw"></i> City</a></li>
             <li class="@yield("state")"><a href=""><i class="fa fa-building fa-fw"></i> State</a></li>
           </ul>

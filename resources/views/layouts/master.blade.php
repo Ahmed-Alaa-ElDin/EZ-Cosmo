@@ -8,7 +8,7 @@
         <title>@yield('title', 'EZ-Cosmo')</title>
 
         {{-- AdminLTE Styles & Scripts --}}
-        @include('includes.head')
+        @include('includes.styles')
 
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
@@ -30,6 +30,9 @@
         
             @include('includes.footer')
         </div>
-
+        @include('includes.scripts')
+        <script>
+            @yield('script')
+        </script>
     </body>
     </html>

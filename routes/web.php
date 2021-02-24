@@ -18,7 +18,20 @@ Route::get('/','UserController@index')->name('get');
 Route::name('admin.')->middleware('auth')->group(function ()
 {
     Route::resource('brands', BrandController::class);
+
     Route::resource('lines', LineController::class);
+
+    Route::get('countries/{country}/users', 'CountryController@showUsers')->name('countries.show.users');
+    Route::get('countries/{country}/products', 'CountryController@showProducts')->name('countries.show.products');
+    Route::get('countries/{country}/brands', 'CountryController@showBrands')->name('countries.show.brands');
+    Route::resource('countries', CountryController::class);
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('indications', IndicationController::class);
+    
+    Route::resource('ingredients', IngredientController::class);
+
 });
 
 

@@ -4,13 +4,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header flex justify-between">
         <h1>
-            All Lines
+            Users From {{ $country->name }} 
             <small>View</small>
         </h1>
         <div>
-            <a href="{{ route('admin.lines.create') }}"
-                class="btn btn-success font-bold inline-block items-center relative block pl-8"><i
-                    class="fa fa-plus fa-xs absolute top-3 left-3"></i> Create New Line</a>
+            <a href="{{ route('admin.countries.index') }}"
+                class="btn btn-primary font-bold inline-block items-center relative block pl-8"><i
+                    class="fas fa-backward fa-xs absolute top-3 left-3"></i> Back To Countries</a>
         </div>
     </section>
     <!-- Main content -->
@@ -18,27 +18,27 @@
         <div class="card">
             <div class="card-body shadow">
                 <div id="buttonPlacement" class="mb-3 text-center"></div>
-                <table id="lines" class="table table-bordered w-100 text-center">
+                <table id="users" class="table table-bordered w-100 text-center">
                     <thead class="bg-primary text-white align-middle">
                         <tr>
                             <th>Name</th>
-                            <th>Brand</th>
+                            <th>Country</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach ($lines as $line)
+                        @foreach ($country->users as $user)
                             <tr>
-                                <td class="align-middle">{{ $line->name }}</td>
-                                <td class="align-middle">{{ $line->brand->name }}</td>
+                                <td class="align-middle">{{ $user->first_name }} {{$user->last_name}}</td>
+                                <td class="align-middle">{{ $country->name }}</td>
                                 <td class="align-middle">
-                                    <a href="{{ route('admin.lines.edit', $line->id) }}"
+                                    {{-- <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-primary font-bold">View Products</a>
-                                    <a href="{{ route('admin.lines.edit', $line->id) }}"
+                                    <a href="{{ route('admin.users.edit', $user->id) }}"
                                         class="btn btn-sm btn-info font-bold">Edit</a>
                                     <button type="button" class="btn btn-sm btn-danger font-bold deleteButton"
-                                        data-name='{{ $line->name }}' data-id='{{ $line->id }}' data-toggle="modal"
-                                        data-target="#DeleteModal">Delete</button>
+                                        data-name='{{ $user->name }}' data-id='{{ $user->id }}' data-toggle="modal"
+                                        data-target="#DeleteModal">Delete</button> --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -46,11 +46,10 @@
                     <tfoot class="bg-light text-primary align-middle">
                         <tr>
                             <th>Name</th>
-                            <th>Brand</th>
+                            <th>Country</th>
                             <th>Actions</th>
                         </tr>
                     </tfoot>
-
                 </table>
             </div>
         </div>
@@ -84,7 +83,7 @@
 @endsection
 
 @section('script')
-    $("#lines").DataTable({
+    $("#users").DataTable({
     buttons: [{
     extend: 'colvis',
     className: 'bg-info font-bold',
