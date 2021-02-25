@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Form extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name'
+    ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

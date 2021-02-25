@@ -31,7 +31,10 @@ Route::name('admin.')->middleware('auth')->group(function ()
     Route::resource('indications', IndicationController::class);
     
     Route::resource('ingredients', IngredientController::class);
-
+    
+    Route::resource('forms', FormController::class);
+    
+    Route::resource('products', ProductController::class);
 });
 
 
