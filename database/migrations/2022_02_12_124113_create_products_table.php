@@ -26,14 +26,14 @@ class CreateProductsTable extends Migration
             $table->string('product_photo')->default('default_product.png');
             $table->string('code');
             $table->bigInteger('form_id')->unsigned();
-            $table->bigInteger('line_id')->unsigned();
-            $table->bigInteger('indication_id')->unsigned();
+            $table->bigInteger('line_id')->unsigned()->nullable();
+            $table->bigInteger('brand_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('form_id')->references('id')->on('forms')->onUpdate('cascade');
             $table->foreign('line_id')->references('id')->on('lines')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('indication_id')->references('id')->on('indications')->onUpdate('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade');
 
         });

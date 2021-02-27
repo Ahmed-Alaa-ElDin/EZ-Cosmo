@@ -34,6 +34,7 @@ Route::name('admin.')->middleware('auth')->group(function ()
     
     Route::resource('forms', FormController::class);
     
+    Route::post('products/{brand}/lines', 'ProductController@showlines')->name('products.show.lines');
     Route::resource('products', ProductController::class);
 });
 

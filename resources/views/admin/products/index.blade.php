@@ -37,7 +37,7 @@
                                 <td class="align-middle">{{ $product->name }}</td>
                                 <td class="align-middle">{{ $product->form->name }}</td>
                                 <td class="align-middle">{{ $product->volume }}</td>
-                                <td class="align-middle">{{ $product->price }}</td>
+                                <td class="align-middle">{{ number_format($product->price,2) }}</td>
                                 <td class="align-middle">{{ $product->line->name }}</td>
                                 <td class="align-middle">{{ $product->line->brand->name }}</td>
                                 <td class="align-middle">{{ $product->category->name }}</td>

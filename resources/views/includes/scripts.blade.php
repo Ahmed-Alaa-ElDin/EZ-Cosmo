@@ -31,6 +31,8 @@
 <script src="{{ asset('bower_components/toastr/toastr.min.js') }}"></script>
 {{-- datatable --}}
 <script src="{{ asset('bower_components/datatables/datatables.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->

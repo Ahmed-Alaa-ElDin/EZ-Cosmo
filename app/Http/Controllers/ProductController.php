@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Form;
+use App\Models\Indication;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -26,7 +30,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $forms = Form::get();
+        $brands = Brand::get();
+        $categories = Category::get();
+        $indications = Indication::get();
+
+        return view('admin.products.create', compact('forms','categories','brands','indications'));
     }
 
     /**
@@ -37,11 +46,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        // dd($request->request);
+        $request->validate([
             'name' => 'required|unique:products|max:50',
+            'brand' => 'required',
+            'category' => 'required',
+            'form' => 'required',
+            'volume' => 'required|numeric|min:0',
+            'units' => 'required|numeric|min:1',
+            'price' => 'required|numeric|min:0',
+            'image.*' => 'image',
         ]);
-        $product = Product::create([
+        Product::create([
             'name' =>  $request->name,
+            'volume' =>  $request->volume,
+            'units' =>  $request->units,
+            'price' =>  $request->price,
+            'advantages' =>  $request->advantage,
+            'disadvantages' =>  $request->disadvantage,
+            'notes' =>  $request->note,
+            'directions_of_use' =>  $request->direction,
+            'code' =>  $request->code,
+            'form_id' =>  $request->form,
+            'line_id' =>  $request->line,
+            'brand_id' =>  $request->brand,
+            'category_id' =>  $request->category,
         ]);
         
         return redirect()->route('admin.products.index')->with('success', "'$request->name' Inserted Successfully");
@@ -100,5 +129,12 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('admin.products.index')->with('success', "'$product->name' Deleted Successfully");
+    }
+
+    public function showlines(Request $request, Brand $brand)
+    {
+        $lines = $brand->lines; 
+        return $lines;
+        dd($brand);
     }
 }

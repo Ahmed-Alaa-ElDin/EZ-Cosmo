@@ -82,7 +82,7 @@
     </div>
 @endsection
 
-{{-- @section('script')
+@section('script')
     $("#brands").DataTable({
     buttons: [{
     extend: 'colvis',
@@ -127,4 +127,4 @@
     @if (session('success'))
         toastr.success('{{ session('success') }}')
     @endif
-@endsection --}}
+@endsection

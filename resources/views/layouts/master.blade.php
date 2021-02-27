@@ -10,6 +10,7 @@
         {{-- AdminLTE Styles & Scripts --}}
         @include('includes.styles')
 
+        @yield('style')
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="wrapper">

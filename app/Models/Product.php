@@ -22,7 +22,6 @@ class Product extends Model
         'code',
         'form_id',
         'line_id',
-        'indication_id',
         'category_id',
     ];
 
@@ -36,14 +35,19 @@ class Product extends Model
         return $this->belongsTo(Line::class);
     }
 
-    public function indication()
+    public function brand()
     {
-        return $this->belongsTo(Indication::class);
+        return $this->belongsTo(Brand::class);
     }
-
+    
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+    
+    public function indication()
+    {
+        return $this->belongsToMany(Indication::class);
     }
 
     public function ingredients()
