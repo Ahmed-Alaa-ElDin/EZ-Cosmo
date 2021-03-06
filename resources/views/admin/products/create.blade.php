@@ -54,10 +54,10 @@
                         {{-- Brand --}}
                         <div class="col-lg-4 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="brand" class="min-w-max mr-3 my-auto">Brand</label>
+                                <label for="brand" class="min-w-max mr-3 my-auto font-bold">Brand</label>
                                 <select name="brand"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('brand') border-red-300 @else border-gray-300 @enderror rounded w-75 pr-5 singleSelect"
-                                    id="brand">
+                                    id="brand" required>
                                     <option value="">Choose Brand</option>
                                     @foreach ($brands as $brand)
                                         <option value="{{ $brand->id }}" @if (old('brand') == $brand->id) selected @endif>
@@ -73,7 +73,7 @@
                         {{-- Lines --}}
                         <div class="col-lg-4 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="line" class="min-w-max mr-3 my-auto">Line</label>
+                                <label for="line" class="min-w-max mr-3 my-auto font-bold">Line</label>
                                 <select name="line"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 rounded w-75 pr-5 singleSelect"
                                     id="line">
@@ -85,9 +85,10 @@
                         {{-- Categories --}}
                         <div class="col-lg-4 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="category" class="min-w-max mr-3 my-auto">Category</label>
+                                <label for="category" class="min-w-max mr-3 my-auto font-bold">Category</label>
                                 <select name="category"
-                                    class="form-control focus:border-blue-200 focus:ring-blue-200 @error('category') border-red-300 @else border-gray-300 @enderror rounded w-75 pr-5 singleSelect">
+                                    class="form-control focus:border-blue-200 focus:ring-blue-200 @error('category') border-red-300 @else border-gray-300 @enderror rounded w-75 pr-5 singleSelect"
+                                    required>
                                     <option value="">Choose Category</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" @if (old('category') == $category->id) selected @endif>{{ $category->name }}</option>
@@ -102,10 +103,11 @@
                         {{-- Name --}}
                         <div class="col-lg-5 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="name" class="min-w-max mr-3 my-auto">Name</label>
+                                <label for="name" class="min-w-max mr-3 my-auto font-bold">Name</label>
                                 <input type="text"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('name') border-red-300 @else border-gray-300 @enderror rounded w-80"
-                                    name="name" value="{{ old('name') }}" placeholder="Enter Product Name">
+                                    name="name" value="{{ old('name') }}" placeholder="Enter Product Name" required
+                                    maxlength="50">
                             </div>
                             @error('name')
                                 <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
@@ -115,9 +117,10 @@
                         {{-- Dosage Form --}}
                         <div class="col-lg-3 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="form" class="min-w-max mr-3 my-auto">Form</label>
+                                <label for="form" class="min-w-max mr-3 my-auto font-bold">Form</label>
                                 <select name="form"
-                                    class="form-control focus:border-blue-200 focus:ring-blue-200 @error('form') border-red-300 @else border-gray-300 @enderror rounded w-75 pr-5 singleSelect">
+                                    class="form-control focus:border-blue-200 focus:ring-blue-200 @error('form') border-red-300 @else border-gray-300 @enderror rounded w-75 pr-5 singleSelect"
+                                    required>
                                     <option value="">Choose Pharmaceutical Form</option>
                                     @foreach ($forms as $form)
                                         <option value="{{ $form->id }}" @if (old('form') == $form->id) selected @endif>
@@ -133,12 +136,12 @@
                         {{-- Volume --}}
                         <div class="col-lg-4 form-group my-3">
                             <div class="input-group">
-                                <label for="validationTooltipUsername" class="min-w-max mr-3 my-auto">Volume |
+                                <label for="validationTooltipUsername" class="min-w-max mr-3 my-auto font-bold">Volume |
                                     Weight</label>
                                 <input type="number" step="any" name="volume"
                                     class="form-control w-25 text-center focus:border-blue-200 focus:ring-blue-200 @error('volume') border-red-300 @else border-gray-300 @enderror"
                                     style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;"
-                                    value="{{ old('volume') }}">
+                                    value="{{ old('volume') }}" required min="0">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"
                                         style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;"
@@ -153,10 +156,10 @@
                         {{-- Units --}}
                         <div class="col-lg-2 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="units" class="min-w-max mr-3 my-auto">Units</label>
+                                <label for="units" class="min-w-max mr-3 my-auto font-bold">Units</label>
                                 <input type="number" step="any"
                                     class="form-control text-center focus:border-blue-200 focus:ring-blue-200 @error('units') border-red-300 @else border-gray-300 @enderror rounded w-75"
-                                    name="units" value="{{ old('units', 1) }}">
+                                    name="units" value="{{ old('units', 1) }}" required min="1">
                             </div>
                             @error('units')
                                 <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
@@ -166,10 +169,12 @@
                         {{-- Price --}}
                         <div class="offset-lg-1 col-lg-3 form-group my-3">
                             <div class="input-group">
-                                <label for="validationTooltipUsername" class="min-w-max mr-3 my-auto">Price</label>
+                                <label for="validationTooltipUsername"
+                                    class="min-w-max mr-3 my-auto font-bold">Price</label>
                                 <input type="number" step="any" name="price"
                                     class="form-control w-25 text-center focus:border-blue-200 focus:ring-blue-200 @error('price') border-red-300 @else border-gray-300 @enderror"
-                                    style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;" value="{{ old('price') }}">
+                                    style="border-top-left-radius: 0.25rem; border-bottom-left-radius: 0.25rem;"
+                                    value="{{ old('price') }}" required min="0">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"
                                         style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;"
@@ -184,7 +189,7 @@
                         {{-- Code --}}
                         <div class="offset-lg-1 col-lg-5 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="code" class="min-w-max mr-3 my-auto">Code</label>
+                                <label for="code" class="min-w-max mr-3 my-auto font-bold">Code</label>
                                 <input type="text"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('code') border-red-300 @else border-gray-300 @enderror rounded w-80"
                                     name="code" value="{{ old('code') }}" placeholder="Enter Product Code">
@@ -194,10 +199,66 @@
                             @enderror
                         </div>
 
+                        {{-- Ingredient --}}
+                        <div class="col-lg-12">
+                            <div class="bg-gray-100 rounded border-2 px-3 py-3 border-gray-400">
+                                <label class="text-center mb-3 font-bold w-100 font-bold">Ingredients</label>
+                                <div id="ingredientsList">
+                                    @if ($errors->any())
+                                        @for ($i = 0; $i < count(old('ingredient')['name']); $i++)
+                                            <div class="row singleIngredient">
+                                                <div class="col-lg-3">
+                                                    <div class="flex">
+                                                        <select name="ingredient[name][]"
+                                                            class="form-control focus:border-blue-200 focus:ring-blue-200 border-gray-300 rounded pr-5` ingredientNameSelect">
+                                                            <option value="">Choose Ingredient</option>
+                                                            @foreach ($ingredients as $ingredient)
+                                                                <option value="{{ $ingredient->id }}" @if ($ingredient->id == old('ingredient')['name'][$i]) selected @endif>
+                                                                    {{ $ingredient->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 form-group">
+                                                    <input type="text"
+                                                        class="form-control focus:border-blue-200 focus:ring-blue-200 border-gray-300 rounded"
+                                                        name="ingredient[concentration][]" placeholder="Concentration"
+                                                        value="{{ old('ingredient')['concentration'][$i] }}"
+                                                        maxlength="50">
+                                                </div>
+                                                <div class="col-lg-6 form-group">
+                                                    <input type="text"
+                                                        class="form-control focus:border-blue-200 focus:ring-blue-200 border-gray-300 rounded"
+                                                        name="ingredient[role][]" placeholder="Role"
+                                                        value="{{ old('ingredient')['role'][$i] }}" maxlength="255">
+                                                </div>
+                                                <div class="col-lg-1 form-group flex content-evenly">
+                                                    <button type="button"
+                                                        class="btn btn-danger btn-sm my-auto font-bold removeIngredient">&times;</button>
+                                                </div>
+                                            </div>
+                                        @endfor
+                                    @else
+                                        <x-ingredient :ingredients='$ingredients'></x-ingredient>
+                                    @endif
+                                </div>
+                                <div class="flex justify-around">
+                                    <button type="button" class="btn btn-success btn-sm font-bold relative pl-4"
+                                        data-toggle="modal" data-target="#addIngredientModel"><i
+                                            class="fa fa-plus fa-xs absolute top-2 left-2"></i> Add New Ingredient to
+                                        Database</button>
+                                    <button type="button" class="btn btn-primary btn-sm font-bold relative pl-4"
+                                        id="addProductIngredient"><i class="fa fa-plus fa-xs absolute top-2 left-2"></i>
+                                        Add Another Ingredient to
+                                        this Product</button>
+                                </div>
+                            </div>
+                        </div>
+
                         {{-- Indications --}}
                         <div class="col-lg-6 form-group my-3">
                             <div class="flex justify-center">
-                                <label for="indication" class="min-w-max mr-3 my-auto">Indications</label>
+                                <label for="indication" class="min-w-max mr-3 my-auto font-bold">Indications</label>
                                 <select name="indication[]"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('indication') border-red-300 @else border-gray-300 @enderror rounded w-75 pr-5 multiSelect"
                                     id="indication" multiple>
@@ -214,20 +275,26 @@
                         {{-- Images --}}
                         <div class="col-lg-6 form-group my-3">
                             <div class="flex justify-center custom-file">
-                                <label for="image" class="min-w-max mr-3 my-auto">Images</label>
+                                <label for="image" class="min-w-max mr-3 my-auto font-bold">Images</label>
                                 <div class="custom-file">
-                                    <input type="file" name="image[]" class="custom-file-input" id="images" multiple>
-                                    <label class="custom-file-label" for="images" id="imagesLable">Choose file...</label>
+                                    <input type="file" name="image[]" class="custom-file-input" id="images" multiple
+                                        accept="image/*">
+                                    <label class="custom-file-label" for="images" id="imagesLable">Choose Images...</label>
                                 </div>
                             </div>
-                            @error('image')
-                                <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
-                            @enderror
+
+                            @if ($errors->any())
+                                @error('image.*')
+                                    <div class="text-red-500 text-center mt-2 font-bold">{{ $message }}</div>
+                                @else
+                                    <div class="text-yellow-500 text-center mt-2 font-bold">Please choose images again</div>
+                                @enderror
+                            @endif
                         </div>
 
                         {{-- Directions --}}
                         <div class="col-lg-6 form-group my-3">
-                            <label for="direction" class="min-w-max mr-3 mb-2">Directions of Use</label>
+                            <label for="direction" class="min-w-max mr-3 mb-2 font-bold">Directions of Use</label>
                             <div class="flex justify-center">
                                 <textarea type="text"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('direction') border-red-300 @else border-gray-300 @enderror rounded w-100"
@@ -241,7 +308,7 @@
 
                         {{-- Notes --}}
                         <div class="col-lg-6 form-group my-3">
-                            <label for="note" class="min-w-max mr-3 mb-2">Notes</label>
+                            <label for="note" class="min-w-max mr-3 mb-2 font-bold">Notes</label>
                             <div class="flex justify-center">
                                 <textarea type="text"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('note') border-red-300 @else border-gray-300 @enderror rounded w-100"
@@ -255,7 +322,7 @@
 
                         {{-- Advantages --}}
                         <div class="col-lg-6 form-group my-3">
-                            <label for="advantage" class="min-w-max mr-3 mb-2">Product's Advantages</label>
+                            <label for="advantage" class="min-w-max mr-3 mb-2 font-bold">Product's Advantages</label>
                             <div class="flex justify-center">
                                 <textarea type="text"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('advantage') border-red-300 @else border-gray-300 @enderror rounded w-100"
@@ -269,7 +336,7 @@
 
                         {{-- Disadvantages --}}
                         <div class="col-lg-6 form-group my-3">
-                            <label for="disadvantage" class="min-w-max mr-3 mb-2">Product's Disadvantages</label>
+                            <label for="disadvantage" class="min-w-max mr-3 mb-2 font-bold">Product's Disadvantages</label>
                             <div class="flex justify-center">
                                 <textarea type="text"
                                     class="form-control focus:border-blue-200 focus:ring-blue-200 @error('disadvantage') border-red-300 @else border-gray-300 @enderror rounded w-100"
@@ -290,11 +357,51 @@
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="addIngredientModel" tabindex="-1" role="dialog" aria-labelledby="addModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white font-bold">
+                    <h5 class="modal-title" id="addModalCenterTitle">Add New Ingredient</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-white">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="form-group  my-4">
+                        <div class="flex justify-center">
+                            <label for="name" class="min-w-max mr-3 self-center my-auto font-bold">Ingredient Name</label>
+                            <input type="text" id="ingredientName"
+                                class="form-control focus:border-blue-200 focus:ring-blue-200 rounded w-50" name="name"
+                                value="">
+                        </div>
+                        <div id="ingredientNameError" class="text-red-500 text-center mt-2 font-bold hidden text-sm"></div>
+                    </div>
+                </div>
+                <div class="modal-footer flex justify-between">
+                    <div class="flex w-50  m-auto justify-between my-4">
+                        <button class="btn btn-success text-white font-bold" id="saveIngredientButton">Save
+                            Ingredient</button>
+                        <button type="button" class="btn btn-danger font-bold" id="cancelIngredientButton"
+                            data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
+    var options = [];
+
     {{-- monoselect --}}
     $('.singleSelect').select2({
+    theme: 'bootstrap4',
+    dropdownAutoWidth: true,
+    });
+    $('.ingredientNameSelect').select2({
     theme: 'bootstrap4',
     dropdownAutoWidth: true,
     });
@@ -327,8 +434,9 @@
     success: function (res) {
     $('#line').empty();
     $('#line').append(choose);
-    for (var i = 0 ; i < res.length ; i++) { let option=res[i].name; let option_id=res[i].id; $('#line').append(`<option
-        value="${option_id}">${option}</option>`);
+    for (var i = 0 ; i < res.length ; i++) { let option=res[i].name; let option_id=res[i].id; $('#line').append(` <option
+        value="${option_id}">${option}</option>
+        `);
         }
         },
         })
@@ -369,4 +477,70 @@
             }
             }
             })
-        @endsection
+            $('#saveIngredientButton').on('click', function () {
+            $.ajax({
+            url: '{{ route('admin.ingredients.add.ajax') }}',
+            method: 'POST',
+            data: {
+            '_token' : '{{ csrf_token() }}',
+            'name' : $('#ingredientName').val()
+            },
+            success: function(res){
+            if(res.name){
+            $('#ingredientName').removeClass('border-gray-300').addClass('border-red-300');
+            $('#ingredientNameError').removeClass('hidden').text(res.name);
+            } else if (res.success) {
+            $('#ingredientName').removeClass('border-red-300').addClass('border-gray-300').val('');
+            $('#ingredientNameError').addClass('hidden');
+            $('#cancelIngredientButton').click();
+            toastr.success(res.success);
+            }
+            }
+            })
+            })
+
+            $('#cancelIngredientButton').on('click', function () {
+            $('#ingredientName').removeClass('border-red-300').addClass('border-gray-300').val('');
+            $('#ingredientNameError').addClass('hidden');
+            });
+
+            $('#ingredientsList').on('click', '.removeIngredient', function () {
+            $(this).parents('.singleIngredient').remove();
+            });
+
+            $('#addProductIngredient').on('click', function() {
+            $('#ingredientsList').append(` <div class="row singleIngredient">
+                <div class="col-lg-3">
+                    <div class="flex">
+                        <select name="ingredient[name][]"
+                            class="form-control focus:border-blue-200 focus:ring-blue-200 rounded pr-5 ingredientNameSelect">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 form-group">
+                    <input type="text"
+                        class="form-control focus:border-blue-200 focus:ring-blue-200 border-gray-300 rounded"
+                        maxlength="50" name="ingredient[concentration][]" placeholder="Concentration">
+                </div>
+                <div class="col-lg-6 form-group">
+                    <input type="text"
+                        class="form-control focus:border-blue-200 focus:ring-blue-200 border-gray-300 rounded"
+                        maxlength="255" name="ingredient[role][]" placeholder="Role">
+                </div>
+                <div class="col-lg-1 form-group flex content-evenly">
+                    <button type="button" class="btn btn-danger btn-sm my-auto font-bold removeIngredient">&times;</button>
+                </div>
+            </div>
+            `);
+
+            $.ajax({
+            method: 'GET',
+            url: '{{ route('admin.ingredients.get.ajax') }}',
+            success: function(res) {
+            options = [{
+            id: '',
+            text: 'Choose Ingredient'
+            }];
+            for (let i = 0; i < res.Ingredients.length; i++) { options.push({ id: res.Ingredients[i].id, text:
+                res.Ingredients[i].name }); } $('.ingredientNameSelect').last().select2({ theme: 'bootstrap4' ,
+            dropdownAutoWidth: true, data: options, tags: true }) } }) }) @endsection

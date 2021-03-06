@@ -21,6 +21,7 @@ class Product extends Model
         'product_photo',
         'code',
         'form_id',
+        'brand_id',
         'line_id',
         'category_id',
     ];
@@ -45,7 +46,7 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
     
-    public function indication()
+    public function indications()
     {
         return $this->belongsToMany(Indication::class);
     }

@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Form;
 use App\Models\Indication;
+use App\Models\Ingredient;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::get();
-        
-        return view('admin.products.index',compact('products'));
+
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -34,8 +35,9 @@ class ProductController extends Controller
         $brands = Brand::get();
         $categories = Category::get();
         $indications = Indication::get();
+        $ingredients = Ingredient::get();
 
-        return view('admin.products.create', compact('forms','categories','brands','indications'));
+        return view('admin.products.create', compact('forms', 'categories', 'brands', 'indications', 'ingredients'));
     }
 
     /**
@@ -46,7 +48,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->request);
+        //  dd($request->request);
+
+        // Validate Product's Data
         $request->validate([
             'name' => 'required|unique:products|max:50',
             'brand' => 'required',
@@ -56,8 +60,29 @@ class ProductController extends Controller
             'units' => 'required|numeric|min:1',
             'price' => 'required|numeric|min:0',
             'image.*' => 'image',
+            '*.concentration' => 'max:50',
+            '*.role' => 'max:255',
+        ], [
+            'image.*.image' => 'Images should have jpg, jpeg or png'
         ]);
-        Product::create([
+
+        // Save Image
+        if ($request->image) {
+            $images = [];
+            foreach ($request->file('image') as $image) {
+                $req_image = $image;
+                $image_name = rand() . '.' . $req_image->getClientOriginalExtension();
+                $req_image->move(public_path('images'), $image_name);
+                array_push($images, $image_name);
+            }
+            $serialized_images = json_encode($images);
+            // dd($serialized_images);
+        } else {
+            $serialized_images = '["default_product.png"]';
+        }
+
+        // Save Product
+        $product = Product::create([
             'name' =>  $request->name,
             'volume' =>  $request->volume,
             'units' =>  $request->units,
@@ -67,12 +92,29 @@ class ProductController extends Controller
             'notes' =>  $request->note,
             'directions_of_use' =>  $request->direction,
             'code' =>  $request->code,
+            'brand_id' =>  $request->brand,
             'form_id' =>  $request->form,
             'line_id' =>  $request->line,
-            'brand_id' =>  $request->brand,
             'category_id' =>  $request->category,
+            'product_photo' => $serialized_images
         ]);
-        
+
+        // Attach Ingredients
+        if (isset($request->ingredient['name'])) {
+            for ($i = 0; $i < count($request->ingredient['name']); $i++) {
+                $ing = Ingredient::find($request->ingredient['name'][$i]);
+                $product->ingredients()->attach($ing, ['concentration' => $request->ingredient['concentration'][$i], 'role' => $request->ingredient['role'][$i]]);
+            }
+        }
+
+        // Attach Indications
+        if (isset($request->indication)) {
+            for ($i = 0; $i < count($request->indication); $i++) {
+                $ind = Indication::find($request->indication[$i]);
+                $product->indications()->attach($ind);
+            }
+        }
+
         return redirect()->route('admin.products.index')->with('success', "'$request->name' Inserted Successfully");
     }
 
@@ -84,7 +126,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+         return response()->json(['product'=>$product]);
     }
 
     /**
@@ -108,13 +150,13 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:products,name,'. $product->id .'|max:50',
+            'name' => 'required|unique:products,name,' . $product->id . '|max:50',
         ]);
 
         $product->update([
             'name' =>  $request->name
         ]);
-        
+
         return redirect()->route('admin.products.index')->with('success', "'$request->name' Updated Successfully");
     }
 
@@ -133,7 +175,7 @@ class ProductController extends Controller
 
     public function showlines(Request $request, Brand $brand)
     {
-        $lines = $brand->lines; 
+        $lines = $brand->lines;
         return $lines;
         dd($brand);
     }

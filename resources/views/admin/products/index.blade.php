@@ -1,5 +1,11 @@
 @extends('layouts.master')
 
+@section('style')
+    {{-- splide --}}
+    <link rel="stylesheet" href="{{ asset('bower_components/splide-2.4.21/dist/css/splide.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/splide-2.4.21/dist/css/themes/splide-skyblue.min.css') }}">
+@endsection
+
 @section('content')
     <!-- Content Header (Page header) -->
     <section class="content-header flex justify-between">
@@ -28,7 +34,7 @@
                             <th>Line</th>
                             <th>Brand</th>
                             <th>Category</th>
-                            <th>Actions</th>
+                            <th class="w-100">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="align-middle">
@@ -37,18 +43,21 @@
                                 <td class="align-middle">{{ $product->name }}</td>
                                 <td class="align-middle">{{ $product->form->name }}</td>
                                 <td class="align-middle">{{ $product->volume }}</td>
-                                <td class="align-middle">{{ number_format($product->price,2) }}</td>
-                                <td class="align-middle">{{ $product->line->name }}</td>
-                                <td class="align-middle">{{ $product->line->brand->name }}</td>
+                                <td class="align-middle">{{ number_format($product->price, 2) }}</td>
+                                <td class="align-middle">{{ $product->line ? $product->line->name : 'N/A' }}</td>
+                                <td class="align-middle">
+                                    {{ $product->line ? $product->line->brand->name : $product->brand->name }}</td>
                                 <td class="align-middle">{{ $product->category->name }}</td>
                                 <td class="align-middle">
-                                    <a href="{{ route('admin.products.show', $product->id) }}"
-                                        class="btn btn-sm btn-primary font-bold">View Details</a>
+                                    {{-- href="{{ route('admin.products.show', $product->id) }}" --}}
+                                    <button type="button" class="btn btn-sm btn-primary font-bold detailsButton"
+                                        data-name='{{ $product->name }}' data-id='{{ $product->id }}'
+                                        data-toggle="modal" data-target="#DetailsModal">View Details</button>
                                     <a href="{{ route('admin.products.edit', $product->id) }}"
                                         class="btn btn-sm btn-info font-bold">Edit</a>
                                     <button type="button" class="btn btn-sm btn-danger font-bold deleteButton"
-                                        data-name='{{ $product->name }}' data-id='{{ $product->id }}' data-toggle="modal"
-                                        data-target="#DeleteModal">Delete</button>
+                                        data-name='{{ $product->name }}' data-id='{{ $product->id }}'
+                                        data-toggle="modal" data-target="#DeleteModal">Delete</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -70,13 +79,13 @@
         </div>
     </section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    <!-- Delete Modal -->
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger text-white font-bold">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Deletion Confirmation</h5>
+                    <h5 class="modal-title" id="deleteModalCenterTitle">Deletion Confirmation</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="text-white">&times;</span>
                     </button>
@@ -96,7 +105,44 @@
         </div>
     </div>
 
+    <!-- Details Modal -->
+    <div class="modal fade bd-example-modal-xl" id="DetailsModal" tabindex="-1" role="dialog"
+        aria-labelledby="datailsModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white font-bold">
+                    <h5 class="modal-title" id="datailsModalCenterTitle">Product's Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-white">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="splide">
+                                <div class="splide__track">
+                                    <ul class="splide__list">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="productImages">
+                            </div>
+                            <div id="productImagesNav">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer flex justify-center">
+                    <button type="button" class="btn btn-danger font-bold" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 @endsection
+
 @section('script')
     $("#products").DataTable({
     buttons: [{
@@ -138,7 +184,32 @@
     $('#deletedItemName').text($(this).data('name'));
     $('#deleteForm').attr("action", '/products/' + $(this).data('id'));
     });
-    @if (session('success'))
-        toastr.success('{{ session('success') }}')
-    @endif
-@endsection
+
+    var splide = new Splide( '.splide' , {
+        type       : 'fade',
+        heightRatio: 0.5,
+        } ).mount();
+
+
+
+    $('.detailsButton').on('click', function () {
+    $('.splide__list').empty();
+
+    $.ajax({
+    url: '/products/' + $(this).data('id'),
+    method: 'GET',
+    success: function (res) {
+    let images = $.parseJSON(res.product.product_photo);
+    for (let i = 0; i < images.length; i++) { 
+        splide.add( `<li class="splide__slide"><img src="/images/${images[i]}" draggable="false"></li>` );
+        console.log(images[i]);
+        }
+        }
+        })
+        })
+
+        @if (session('success'))
+            toastr.success('{{ session('success') }}')
+        @endif
+
+    @endsection

@@ -17,7 +17,8 @@ class CreateIngredientProductTable extends Migration
             $table->id();
             $table->bigInteger('ingredient_id')->unsigned();
             $table->bigInteger('product_id')->unsigned();
-            $table->timestamps();
+            $table->string('concentration',50)->nullable();
+            $table->string('role',255)->nullable();
 
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onUpdate('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade');

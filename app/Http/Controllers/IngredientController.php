@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class IngredientController extends Controller
 {
@@ -37,10 +39,10 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required|unique:ingredients|max:50',
         ]);
-        $ingredient = Ingredient::create([
+        Ingredient::create([
             'name' =>  $request->name,
         ]);
         
@@ -100,5 +102,28 @@ class IngredientController extends Controller
         $ingredient->delete();
 
         return redirect()->route('admin.ingredients.index')->with('success', "'$ingredient->name' Deleted Successfully");
+    }
+
+    public function addAjaxIngredient(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|unique:ingredients|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages());
+        } else {
+            Ingredient::create([
+                'name' =>  $request->name,
+            ]);
+            return response()->json(['success'=>"'$request->name' Inserted Successfully"]);
+        }
+    }
+
+    public function getAjaxIngredient()
+    {
+        $Ingredients = Ingredient::all();
+
+        return response()->json(['Ingredients'=>$Ingredients]);
     }
 }

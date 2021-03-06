@@ -126,6 +126,6 @@
     });
 
     @if (session('success'))
-        toastr.success('{{ session('success') }}')
+        toastr.success('{{ session('success') }}');
     @endif
 @endsection

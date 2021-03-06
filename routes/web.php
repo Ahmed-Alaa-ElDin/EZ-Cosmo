@@ -30,6 +30,8 @@ Route::name('admin.')->middleware('auth')->group(function ()
 
     Route::resource('indications', IndicationController::class);
     
+    Route::post('ingredients/add_ajax', 'IngredientController@addAjaxIngredient')->name('ingredients.add.ajax');
+    Route::get('ingredients/get_ajax', 'IngredientController@getAjaxIngredient')->name('ingredients.get.ajax');
     Route::resource('ingredients', IngredientController::class);
     
     Route::resource('forms', FormController::class);
