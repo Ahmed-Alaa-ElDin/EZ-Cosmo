@@ -33,8 +33,8 @@
 <script src="{{ asset('bower_components/datatables/datatables.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
-<!-- splide -->
-<script src="{{ asset('bower_components/splide-2.4.21/dist/js/splide.min.js') }}"></script>
+<!-- Glide -->
+<script src="{{ asset('bower_components/slick/slick.min.js') }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- AdminLTE App -->

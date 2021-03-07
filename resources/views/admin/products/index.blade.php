@@ -2,8 +2,19 @@
 
 @section('style')
     {{-- splide --}}
-    <link rel="stylesheet" href="{{ asset('bower_components/splide-2.4.21/dist/css/splide.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('bower_components/splide-2.4.21/dist/css/themes/splide-skyblue.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/slick/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/slick/slick-theme.css') }}">
+    <style>
+        .slick-dots {
+            bottom: auto;
+        }
+        *:focus {
+            outline: 0!important;
+        }
+        .slick-arrow::after, .slick-arrow::before {
+            color: black
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -52,7 +63,8 @@
                                     {{-- href="{{ route('admin.products.show', $product->id) }}" --}}
                                     <button type="button" class="btn btn-sm btn-primary font-bold detailsButton"
                                         data-name='{{ $product->name }}' data-id='{{ $product->id }}'
-                                        data-toggle="modal" data-target="#DetailsModal">View Details</button>
+                                        data-toggle="modal"  data-target="#DetailsModal" >View Details</button>
+                                        {{-- --}}
                                     <a href="{{ route('admin.products.edit', $product->id) }}"
                                         class="btn btn-sm btn-info font-bold">Edit</a>
                                     <button type="button" class="btn btn-sm btn-danger font-bold deleteButton"
@@ -119,16 +131,41 @@
                 <div class="modal-body text-center">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="splide">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-                                    </ul>
+                            <div style="width: 90%">
+
+                                <div class="single-item" style="height: 100%">
+                                    
                                 </div>
                             </div>
-                            <div id="productImages">
-                            </div>
-                            <div id="productImagesNav">
-                            </div>
+                        
+                        </div>
+                        <div class="col-lg-6">
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
+                            <h1>Ahmed</h1>
                         </div>
                     </div>
                 </div>
@@ -144,6 +181,7 @@
 @endsection
 
 @section('script')
+
     $("#products").DataTable({
     buttons: [{
     extend: 'colvis',
@@ -181,31 +219,37 @@
     }).buttons().container().appendTo(document.getElementById("buttonPlacement"));;
 
     $('.deleteButton').on('click', function() {
-    $('#deletedItemName').text($(this).data('name'));
-    $('#deleteForm').attr("action", '/products/' + $(this).data('id'));
+        $('#deletedItemName').text($(this).data('name'));
+        $('#deleteForm').attr("action", '/products/' + $(this).data('id'));
     });
 
-    var splide = new Splide( '.splide' , {
-        type       : 'fade',
-        heightRatio: 0.5,
-        } ).mount();
+    {{-- $('.single-item').slick(); --}}
+        $('#DetailsModal').on('shown.bs.modal', function() {
 
-
-
-    $('.detailsButton').on('click', function () {
-    $('.splide__list').empty();
-
-    $.ajax({
-    url: '/products/' + $(this).data('id'),
-    method: 'GET',
-    success: function (res) {
-    let images = $.parseJSON(res.product.product_photo);
-    for (let i = 0; i < images.length; i++) { 
-        splide.add( `<li class="splide__slide"><img src="/images/${images[i]}" draggable="false"></li>` );
-        console.log(images[i]);
-        }
-        }
+            $.ajax({
+                url: '/products/' + $(this).data('id'),
+                method: 'GET',
+                success: function (res) {
+                    let images = $.parseJSON(res.product.product_photo);
+                    for (let i = 0; i < images.length; i++) { 
+                        $('.single-item').append(`<div class="single_slide"><img src="/images/${images[i]}" style="margin: auto" draggable="false"></div>`);
+                        console.log($('.single_slide').length);
+                    }
+                }
+            }).then(() => $('.single-item').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: true,
+              }))
         })
+
+        $('.detailsButton').on('click', function () {
+            $('#DetailsModal').data('id',$(this).data('id'))
+        })
+        $('#DetailsModal').on('hidden.bs.modal', function() {
+            $('.single-item').slick("unslick")
+            $('.single_slide').remove();
         })
 
         @if (session('success'))
