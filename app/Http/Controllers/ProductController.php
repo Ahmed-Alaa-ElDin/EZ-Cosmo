@@ -126,7 +126,16 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-         return response()->json(['product'=>$product]);
+        $line = $product->line ? $product->line->name : "";
+        $category = $product->category->name;
+        $brand = $product->brand->name;
+        $form = $product->form->name;
+        $indications = $product->indications ? $product->indications : "";
+        $ingredients = $product->ingredients ? $product->ingredients : "";
+        // dd($product->indications->concentration);
+        return response()->json([
+            'product' => $product,
+        ]);
     }
 
     /**

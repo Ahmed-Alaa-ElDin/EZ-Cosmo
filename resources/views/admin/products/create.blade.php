@@ -35,11 +35,6 @@
     <section class="content-header">
         <h1>
             New Product
-            @if (!old('line'))
-                {{ 'sadadas' }}
-            @else
-                {{ 'ahmed' }}
-            @endif
             <small>Create</small>
         </h1>
     </section>
@@ -243,14 +238,14 @@
                                     @endif
                                 </div>
                                 <div class="flex justify-around">
-                                    <button type="button" class="btn btn-success btn-sm font-bold relative pl-4"
-                                        data-toggle="modal" data-target="#addIngredientModel"><i
-                                            class="fa fa-plus fa-xs absolute top-2 left-2"></i> Add New Ingredient to
-                                        Database</button>
                                     <button type="button" class="btn btn-primary btn-sm font-bold relative pl-4"
-                                        id="addProductIngredient"><i class="fa fa-plus fa-xs absolute top-2 left-2"></i>
-                                        Add Another Ingredient to
-                                        this Product</button>
+                                    id="addProductIngredient"><i class="fa fa-plus fa-xs absolute top-2 left-2"></i>
+                                    Add Another Ingredient to
+                                    this Product</button>
+                                    <button type="button" class="btn btn-success btn-sm font-bold relative pl-4"
+                                    data-toggle="modal" data-target="#addIngredientModel"><i
+                                    class="fa fa-plus fa-xs absolute top-2 left-2"></i> Add New Ingredient to
+                                    Database</button>
                                 </div>
                             </div>
                         </div>
